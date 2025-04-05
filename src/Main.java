@@ -1,6 +1,5 @@
 import exceptions.SaldoInsulficiente;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -40,8 +39,8 @@ public class Main {
                 try {
                     cliente.sacarDinheiro(valor);
                     System.out.println("O saldo na conta é: " + cliente.getSaldo());
-                } catch (SaldoInsulficiente e) {
-                    System.out.println(e);
+                } catch (SaldoInsulficiente message) {
+                    System.out.println("Erro: " + message);
                 }
 
             }
@@ -51,8 +50,8 @@ public class Main {
                 double valor = scanner.nextDouble();
                 try {
                     cliente.pagarBoleto(valor);
-                } catch (SaldoInsulficiente e) {
-                    System.out.println(e);
+                } catch (SaldoInsulficiente message) {
+                    System.out.println("Erro: " + message);
                 }
             }
             case null, default -> System.out.println("Escreva um número válido de uma opção.");
