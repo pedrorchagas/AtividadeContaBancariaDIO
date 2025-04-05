@@ -10,7 +10,7 @@ public class ContaBancaria {
     // construtor da classe
     public ContaBancaria(double saldoInicial, String nome) {
         this.saldo = saldoInicial;
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
 
         if (saldoInicial <= 500.00) {
             // se for menor ou igual a 500 o cheque especial será apenas R$50,00
@@ -47,8 +47,9 @@ public class ContaBancaria {
             // Isso irá acontecer caso o valor do boleto seja maior que o saldo
             valorBoleto = valorBoleto - this.saldo;
             this.saldo = 0;
-            this.valorChequeEspecial = this.valorChequeEspecial - valorBoleto;
+            this.valorChequeEspecial = this.valorChequeEspecial - valorBoleto - (valorBoleto * 0.20);
             this.chequeEspecial = true;
+
         }
         else {
             throw new SaldoInsulficiente("Saldo insulficiente para pagar o boleto");

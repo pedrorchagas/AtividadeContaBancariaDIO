@@ -1,3 +1,5 @@
+import exceptions.SaldoInsulficiente;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -21,18 +23,52 @@ public class Main {
         System.out.println("Escolha uma dessas opções a baixo: \n1 - Depositar dinheiro\n2 - Sacar dinheiro\n3 - Pagar um boleto\n");
         scanner.nextLine();
         String opcao = scanner.nextLine();
-        if (Objects.equals(opcao, "1")){
-           System.out.print("escolheu 1");
 
-        } else if (Objects.equals(opcao, "2")) {
-            System.out.print("escolheu 2");
+        switch (opcao) {
+            case "1" -> {
+                System.out.println("Opção escolhida: 1 - Depositar dinheiro ");
+                System.out.println("Escreva o valor a ser depositado: ");
+                double valor = scanner.nextDouble();
+                cliente.depositarDinheiro(valor);
 
-        } else if (Objects.equals(opcao, "3")) {
-            System.out.print("escolheu 3");
+                System.out.println("O saldo na conta é: " + cliente.getSaldo());
+            }
+            case "2" -> {
+                System.out.println("Opção escolhida: 2 - Sacar dinheiro ");
+                System.out.println("Escreva o valor a ser sacado: ");
+                double valor = scanner.nextDouble();
+                try {
+                    cliente.sacarDinheiro(valor);
+                    System.out.println("O saldo na conta é: " + cliente.getSaldo());
+                } catch (SaldoInsulficiente e) {
+                    System.out.println(e);
+                }
 
-        } else {
-            System.out.println("Escreva um número válido.");
+            }
+            case "3" -> {
+                System.out.println("Opção escolhida: 3 - Pagar um boleto ");
+                System.out.println("Escreva o valor do boleto: ");
+                double valor = scanner.nextDouble();
+                try {
+                    cliente.pagarBoleto(valor);
+                } catch (SaldoInsulficiente e) {
+                    System.out.println(e);
+                }
+            }
+            case null, default -> System.out.println("Escreva um número válido de uma opção.");
         }
 
+        mostrarInfo(cliente);
+
+    }
+
+    static void mostrarInfo(ContaBancaria contaCliente) {
+        System.out.println("\n\n================================");
+        System.out.println("Nome: " + contaCliente.getNome());
+        System.out.println("Saldo: " + contaCliente.getSaldo());
+        System.out.println("Usando cheque especial? " + contaCliente.usaChequeEspecial());
+        System.out.println("Valor do cheque especial: " + contaCliente.getValorChequeEspecial());
+        System.out.println("Valor total (saldo + cheque): " + contaCliente.consultarChequeEspecial());
+        System.out.println("================================");
     }
 }

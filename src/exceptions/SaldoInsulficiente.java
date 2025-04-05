@@ -1,6 +1,6 @@
 package exceptions;
 
-public class SaldoInsulficiente extends RuntimeException {
+public class SaldoInsulficiente extends Exception {
     public SaldoInsulficiente (String message) {
         super(message);
     }
